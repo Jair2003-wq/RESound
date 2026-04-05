@@ -1,0 +1,83 @@
+import { useState } from "react";
+import { Image } from "react-native";
+import {View,Text,TextInput,TouchableOpacity,StyleSheet} from "react-native";
+export default function Login(){
+    const[email,setEmail]=useState("");
+    const[password, setPassword]=useState("");
+    const handleLogin = () => {
+        if(!email || !password){
+            alert("Completa los campos");
+            return;
+        
+        }
+        alert("Login exitoso");
+
+    }
+    return(
+        <View style={styles.container}>
+
+            <Image
+             source={require("@/assets/images/logo.png")}
+             style={styles.logo}
+            />
+
+            <Text style={styles.title}>Login</Text>
+            <TextInput
+            placeholder="Correo"
+            value={email}
+            onChangeText={setEmail}
+            style={styles.input}
+            />
+            <TextInput
+            placeholder="Contraseña"
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry
+            style={styles.input}
+            />
+            <TouchableOpacity style={styles.button}onPress={handleLogin}>
+                <Text style={styles.buttonText}>Entrar</Text>
+            </TouchableOpacity>
+        </View>
+    );
+
+}
+const styles = StyleSheet.create({
+    container: {
+        backgroundColor: "#fff",
+        flex: 1,
+        justifyContent: "center",
+        alignItems:"center",
+    },
+    logo: {
+        width: 120,
+        height: 120,
+        marginBottom: 20,
+
+    },
+    title: {
+        fontSize:24,
+        marginBottom:20,
+
+    },
+    input: {
+        width: 250,
+        height: 40,
+        borderWidth: 1,
+        marginBottom: 10,
+        paddingHorizontal: 10,
+        backgroundColor:"#ffffff"
+    },
+    button: {
+        backgroundColor: "#e32fec",
+        padding: 10,
+        width:250,
+        alignItems: "center",
+
+    },
+    buttonText: {
+        color:"white",
+    },
+
+
+})
