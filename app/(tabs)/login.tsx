@@ -1,9 +1,16 @@
 import { useState } from "react";
 import { Image } from "react-native";
 import {View,Text,TextInput,TouchableOpacity,StyleSheet} from "react-native";
-export default function Login(){
+import {useFonts, Montserrat_400Regular } from "@expo-google-fonts/montserrat";
+import { useRouter } from "expo-router";
+export default function Login( {navigation} : any){
+    const router = useRouter();
     const[email,setEmail]=useState("");
     const[password, setPassword]=useState("");
+    const[fontsLoaded]=useFonts({
+        Montserrat_400Regular
+    });
+    if (!fontsLoaded) return null;
     const handleLogin = () => {
         if(!email || !password){
             alert("Completa los campos");
@@ -11,17 +18,16 @@ export default function Login(){
         
         }
         alert("Login exitoso");
-
     }
+
     return(
         <View style={styles.container}>
+            <Text style={styles.title}>Bienvenido a RESound</Text>
 
             <Image
              source={require("@/assets/images/logo.png")}
              style={styles.logo}
             />
-
-            <Text style={styles.title}>Login</Text>
             <TextInput
             placeholder="Correo"
             value={email}
@@ -37,6 +43,9 @@ export default function Login(){
             />
             <TouchableOpacity style={styles.button}onPress={handleLogin}>
                 <Text style={styles.buttonText}>Entrar</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => router.push("/register")}>
+                <Text style={styles.linkText}>Crear cuenta</Text>
             </TouchableOpacity>
         </View>
     );
@@ -58,6 +67,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize:24,
         marginBottom:20,
+        fontFamily:"Montserrat_400Regular",
 
     },
     input: {
@@ -66,10 +76,11 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         marginBottom: 10,
         paddingHorizontal: 10,
-        backgroundColor:"#ffffff"
+        backgroundColor:"#ffffff",
+        fontFamily:"Montserrat_400Regular",
     },
     button: {
-        backgroundColor: "#e32fec",
+        backgroundColor: "#f285f8",
         padding: 10,
         width:250,
         alignItems: "center",
@@ -77,7 +88,15 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         color:"white",
+        fontFamily:"Montserrat_400Regular",
     },
+    linkText:{
+        marginTop:15,
+        color:"#003366",
+        textDecorationLine:"underline",
+        fontFamily:"Montserrat_400Regular",
+
+    }
 
 
 })
