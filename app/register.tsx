@@ -1,7 +1,9 @@
 import { Montserrat_400Regular, useFonts } from "@expo-google-fonts/montserrat";
 import { useState } from "react";
 import { ActivityIndicator, Image, Modal, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { useRouter } from "expo-router";
 export default function Register( {navigation} : any){
+    const router=useRouter();
     const[nombre,setNombre]=useState("");
     const[apellidos,setApellidos]=useState("");
     const[email,setEmail]=useState("");
@@ -28,7 +30,7 @@ export default function Register( {navigation} : any){
             return;
         }
     };
-       const confirmarCodigo = () => {
+    const confirmarCodigo = () => {
             if(!codigo) {
                 alert("Ingresar el código que se envió a tu correo");
                 return;
@@ -99,7 +101,11 @@ export default function Register( {navigation} : any){
                         style={styles.input}
                         ></TextInput>
 
-                        <TouchableOpacity style={styles.button} onPress={confirmarCodigo } disabled={loading}>
+                        <TouchableOpacity style={styles.button} onPress={() => { 
+                            confirmarCodigo(); 
+                            router.push("/login");
+                        }}
+                             disabled={loading}>
                             {loading ?(
                                 <ActivityIndicator color="blue"/>
                             ): (
